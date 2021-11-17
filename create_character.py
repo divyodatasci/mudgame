@@ -43,14 +43,17 @@ def create_character():
         "fighting_skill": 200
     }
 
-    if attribute_selected == 1:
+    if attribute_selected == 1 or attribute_selected.title() == 'Rich':
         player["gold_coins"] = 1000
-    elif attribute_selected == 2:
+    elif attribute_selected == 2 or attribute_selected.title() == 'Strong':
         player["energy"] = 1000
-    else :
+    elif attribute_selected == 3 or attribute_selected.title() == 'Strong' :
         player["fighting_skill"] = 1000
 
     print(f"\n\n\nHi {fname}!, You are ready for the game, Following are your details:")
     #print(player.get('gold_coins'))
 
     print(f'Name: {player["name"]} \t Sex: {player["sex"]} \nGold Coins: {player["gold_coins"]}  \t Energy: {player["energy"]} MegaCalories  \t Fighting Skills : {player["fighting_skill"]} Fighting Skill Points ')
+
+
+#create_character()
