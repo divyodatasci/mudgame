@@ -14,7 +14,7 @@ def main():
         else:
             print("Sorry! Either the username or password is wrong, Please register or login again.")
     print(player)
-    create_character(player)
+    player.create_character()
 
 
 def askYesOrNo(question):
