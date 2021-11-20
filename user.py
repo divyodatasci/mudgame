@@ -1,4 +1,5 @@
 from Character import Character
+from game import Game
 
 
 class User:
@@ -8,6 +9,7 @@ class User:
         self.character = ""
         self.score = 0
         self.level=0
+        self.location=""
 
     def create_character(self):
         flag= False
@@ -56,7 +58,13 @@ class User:
         print(f"\n\n\nHi {player.name}!, You are ready for the game, Following are your details:")
         
         print(f'Name: {player.name} \t Sex: {player.sex} \nGold Coins: {player.wealth}  \t Energy: {player.energy} MegaCalories  \t Fighting Skills : {player.fighting_skill} Fighting Skill Points ')
-        
+
+
+    def play_game(self):
+        new_game = Game(self)
+        new_game.beginning()
+
+        print("location: "+ str(self.location))
 #create_character()
 
 '''class LoggedInUser(User):

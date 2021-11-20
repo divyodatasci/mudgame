@@ -15,7 +15,7 @@ def main():
             print("Sorry! Either the username or password is wrong, Please register or login again.")
     print(player)
     player.create_character()
-
+    player.play_game()
 
 def askYesOrNo(question):
     flag = False

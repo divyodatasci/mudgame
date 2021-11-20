@@ -3,38 +3,29 @@ def beginning():
     
     flag_dir = False
     while flag_dir == False:
-        input_command = input()
-        if input_command.title() == 'Location' or input_command.title() == 'L':
-            flag_dir=True
-            beginning()
-        elif input_command.title() in ['Go North','Gn', 'North', 'N']:
-            flag_dir=True
-            potion_seller()
-        elif input_command.title() in ['Go East' , 'Ge', 'East', 'E']:
-            flag_dir=True
-            goEast()
-        elif input_command.title() in ['Go West', 'Gw', 'West', 'W']:
-            flag_dir=True
-            goWest()
-        elif input_command.title() in ['Go South', 'Gs', 'South', 'S']:
-            print("You cannot move in this direction, please provide a different input")
-        elif 'Fight' in input_command.title():
-            print("There is nothing to fight with here, please provide a different input")
-        elif 'Break' in input_command.title():
-            print("There is nothing to break here, please provide a different input")
-        elif input_command.title() == 'Inventory' or input_command.title() == 'I':
-            flag_dir=True
-            inventory("beginning")
-        elif input_command.title() == 'Help' or input_command.title() == 'H':
-            help("beginning")
-        else:
-             print("This input is invalid in this stage, please provide a different input")
-           
-def goEast():
-    print("Reached buy_potion")
-
-def goWest():
-    print("Reached buy_potion")
+        input_command = input("Enter an input to proceed")
+        getResponseOnInput(input_command, beginning, potion_seller, temple, nowhere, nowhere )
+        
+def getResponseOnInput(input_command, location, north, east, west, south):
+    if input_command.title() == 'Location' or input_command.title() == 'L':
+        flag_dir=True
+        location()
+    elif input_command.title() in ['Go North','Gn', 'North', 'N']:
+        flag_dir=north()
+    elif input_command.title() in ['Go East' , 'Ge', 'East', 'E']:
+        flag_dir=east()
+    elif input_command.title() in ['Go West', 'Gw', 'West', 'W']:
+        flag_dir=west()
+    elif input_command.title() in ['Go South', 'Gs', 'South', 'S']:
+        flag_dir=south()
+    else:
+        print("This input is invalid in this stage, please provide a different input")        
+def temple():
+    print("You are standing near Lord Mudwana's temple, you see a Man with lots of money infront of you, he is counting his money.")
+    return True
+def nowhere():
+    print("Sorry! you cannot go in this direction. Enter a different input")
+    return False
 
 def buy_potion():
     print("Reached buy_potion")
@@ -50,6 +41,7 @@ def potion_seller():
         skill_teacher()
     elif drink_potion in ["No","n", "no"]:
         skill_teacher()
+    return True
 def buy_potion():
     print("Reached buy_potion")
 
@@ -86,4 +78,4 @@ def cognoblin():
             print("Whom do you want to fight with, please enter the command [FIGHT {element name}] ")
         elif answer.title() in ["Fight Cognoblin", "Fight Monster"]:
             print("Fight Monster")
-#beginning()
+'''beginning()'''
