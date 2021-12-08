@@ -1,7 +1,7 @@
 from Character import Character
 from game import Game
 
-
+# following class stores the player information and also performs the actions of player
 class User:
     def __init__(self, username, password):
         self.username = username
@@ -11,61 +11,79 @@ class User:
         self.level=0
         self.location=""
 
+    # following method is used for creating character 
     def create_character(self):
-        flag= False
-        while (flag == False):
-            name = input('Please tell us your desired name for the game: ')
+        flag_name= False   # flag_name becomes true when user provides only alphabets
+        while (flag_name == False):
+            name = input('Please tell us your desired name for the game: ')  # input for character name 
             if(name.isalpha()):
-                flag= True
+                flag_name= True
             else:
                 print("Sorry! We cannot process the name you entered. Your first name should contain only alphabets.")
           
-        sex = str(input('\nPlease mention your gender Male/Female/Others: '))
-        flag = False
-        while(flag== False):
+        sex = str(input('\nPlease mention your gender Male/Female/Others [M/F/O]: '))   # input for character's gender
+        flag_gender = False  # flag_name becomes true when user provides correct gender input
+        while(flag_gender== False):
             if(sex.title() =='Male' or sex.title() == 'M'):
                 sex = 'Male'
-                flag = True
+                flag_gender = True
             elif(sex.title() == 'Female' or sex.title() == 'F'):
                 sex = 'Female' 
-                flag = True  
-            elif(sex.title() == 'Others' or sex.title() =='Other' or sex.title() == 'None' or sex.title() == 'No'):
+                flag_gender = True  
+            elif(sex.title() == 'Others' or sex.title() =='O' or sex.title() == 'None' or sex.title() == 'No'):
                 sex = 'Others'
-                flag = True
+                flag_gender = True
             else:
                 print('\nSorry, we are unable to process your input.')
-                sex = input('\nPlease mention one from Male/Female/Others: ')
+                sex = input('\nPlease mention one from Male/Female/Others [M/F/O]: ')
+
+
         print("\n \nChoose an Attribute -----------------------------------------------------------------------------")
-        print('\nThere are three major class to choose from, Each class has its own benifit \n 1. RichYanki  \n 2. Strongrogdor \n 3. Fighterelf')
-        attribute_selected = int(input("Please choose an option from above. Please enter a number corresponding to the attribute 1/2/3: "))
+        print('\nThere are three major class to choose from, Each class has its own benifit')
+        print('\n 1. RichYanki  \n 2. Strongrogdor \n 3. Fighterelf') # Name of different classes
         
-        if attribute_selected == 1 or str(attribute_selected).lower() == 'richyanki':
-            gold_coins = 1000
-            energy = 300
-            fighting_skill = 100
-        elif attribute_selected == 2 or str(attribute_selected).title() == 'Strongrogdor':
-            energy = 1100
-            fighting_skill = 200
-            gold_coins = 100
-        elif attribute_selected == 3 or str(attribute_selected).title() == 'Fighterelf' :
-            fighting_skill = 800
-            energy = 500
-            gold_coins = 100
+        flag_attribute = False
+
+        while flag_attribute == False:
+            # input for class selection
+            attribute_selected = int(input("Please choose an option from above. Please enter a number corresponding to the attribute 1/2/3: "))
+            
+            if attribute_selected == 1 or str(attribute_selected).lower() == 'richyanki':
+                gold_coins = 1000  # setting attributes' values according to selected class
+                energy = 300
+                fighting_skill = 100
+                flag_attribute = True
+            elif attribute_selected == 2 or str(attribute_selected).title() == 'Strongrogdor':
+                energy = 1100       # setting attributes' values according to selected class
+                fighting_skill = 200
+                gold_coins = 100
+                flag_attribute = True
+            elif attribute_selected == 3 or str(attribute_selected).title() == 'Fighterelf' :
+                fighting_skill = 800   # setting attributes' values according to selected class
+                energy = 500
+                gold_coins = 100
+                flag_attribute = True
+            else:
+                print("Sorry, that was an invalid input")
 
 
-        player = Character(name.title(),sex,energy,fighting_skill, gold_coins)
-        self.character=player
+        player = Character(name.title(),sex,energy,fighting_skill, gold_coins) # Character object is created
+        self.character=player       # setting character object as an attribute value to the user object
         print(f"\n\n\nHi {player.name}!, You are ready for the game, Following are your details:")
         
         print(f'Name: {player.name} \t Sex: {player.sex} \nGold Coins: {player.wealth}  \t Energy: {player.energy} MegaCalories  \t Fighting Skills : {player.fighting_skill} Fighting Skill Points ')
+        
+        
 
-
+    # This method is used to start the game for the user
     def play_game(self):
-        new_game = Game(self)
-        new_game.beginning()
+        new_game = Game(self)  # Creating an object of Game class
+        new_game.showGameMap()
+
+        new_game.beginning() # Calling the beginning method of game class
 
         print("location: "+ str(self.location))
-#create_character()
+
 
 '''class LoggedInUser(User):
     def __init__(self, username, password):
