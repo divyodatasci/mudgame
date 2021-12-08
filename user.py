@@ -82,7 +82,6 @@ class User:
 
         new_game.beginning() # Calling the beginning method of game class
 
-        print("location: "+ str(self.location))
 
 
 '''class LoggedInUser(User):
