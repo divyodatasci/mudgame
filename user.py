@@ -7,8 +7,6 @@ class User:
         self.username = username
         self.password = password
         self.character = ""
-        self.score = 0
-        self.level=0
         self.location=""
 
     # following method is used for creating character 
@@ -77,11 +75,14 @@ class User:
 
     # This method is used to start the game for the user
     def play_game(self):
-        new_game = Game(self)  # Creating an object of Game class
-        new_game.showGameMap()
-
-        new_game.beginning() # Calling the beginning method of game class
-
+        game = Game(self)  # Creating an object of Game class
+        game.showGameMap()
+        if(self.location=='null' or 'beginning'): 
+            game.beginning() # Calling the beginning method of game class
+        elif(self.location=='potion_seller'):
+            game.potion_seller()
+        elif(self.location=='cognoblin'):
+            game.cognoblin()
 
 
 '''class LoggedInUser(User):

@@ -94,16 +94,29 @@ class Game:
         print("How do you want to proceed?")
 
         user_input = int(input("Please provide your choice [1/2/3]: "))
+        win = False
         if user_input == 1:
-            self.askQuestion()
+            win = self.playQuestion()
         elif user_input == 2:
-            self.payCognoblin()
+            win = self.payCognoblin()
         elif user_input == 3:
             win = self.fightCognoblin()
         else:
             print("Sorry, that was an invalid input")
             self.cognoblin()
-
+        if win == True:
+            self.user.location = 'won'
+    def playQuestion():
+        print       
+    def payCognoblin(self):
+        if self.user.character.wealth > 1000:
+            print("You were able to pay Cognoblin 1000 Gold Coins so he unlocks the door to treasure for you")
+            won = True
+        else:
+            print("You don't have 1000 Gold Coins, you are unable to pay Cognoblin 1000 Gold Coins, He is angry now.")
+            won = False
+        return won 
+    
     def fightCognoblin(self):
         cognoblin =  Character('Cognoblin','O','1000','150','15000')
         player = self.user.character

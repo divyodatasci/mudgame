@@ -1,4 +1,5 @@
 from getpass import getpass
+from Character import Character
 from user import   User
 
 
@@ -10,10 +11,22 @@ def login_user():
     user_file = open('users.txt','r')          # users.txt has all the user details
     lines = user_file.readlines()               # storing all the lines of users.txt file in lines
     player=""
-    for line in lines:                                  # loop for reading and checking each line
-        if line == "username:"+username + " password:"+ password+"\n":
-            player = User(username, password)                            # authenticating by checking user information
-            break
+    if len(lines) > 0:
+        for line in lines: 
+            line_data = line.split(',')
+            id=str(line_data[0])
+            pw=str(line_data[1])
+            if (id == str(username)) and (pw==str(password)) :                            # authenticating by checking user information
+                player = User(username, password)   # creating user object 
+                name= str(line_data[2])
+                sex=str(line_data[3])
+                energy=int(line_data[4])
+                fighting_skill=int(line_data[5])
+                wealth=int(line_data[6]) 
+                character = Character(name, sex, energy, fighting_skill, wealth)
+                player.character = character
+                player.location = str(line_data[7])
+                break
     return player    
         
        
@@ -23,7 +36,8 @@ def authenticate(id, password):
     user_file = open('users.txt','r')
     lines = user_file.readlines()
     for line in lines:
-        if line == "username:"+id + " password:"+ password+"\n":
+        line_data = line.split(',')
+        if line_data[0] == id & line_data[1]==password :
 
             return True
     return False

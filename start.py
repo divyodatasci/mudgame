@@ -18,15 +18,17 @@ def main():
 
     flag_character_creation = False
 
-    while flag_character_creation == False:
-        player.create_character()
-        if askYesOrNo("Are you okay with the created character for your game [Y/N]?"):   # askYesOrNo function is called 
-            flag_character_creation = True
-            print()
-            print()
-            print()
-            player.play_game()     # This begins the game for the created character
-    
+    if (player.character.name == 'null' and player.location != 'won'):
+
+        while flag_character_creation == False:
+            player.create_character()
+            if askYesOrNo("Are you okay with the created character for your game [Y/N]?"):   # askYesOrNo function is called 
+                flag_character_creation = True
+                print()
+                print()
+                print()
+    player.play_game()     # This begins the game for the created character
+                    
 
 
 # general function for asking yes/no question

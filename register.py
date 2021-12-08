@@ -32,7 +32,7 @@ def register_user():
             usernames_file.write(username+"\n")             #saving username in usernames.txt
             usernames_file.close()
             user = User(username, password)
-            user_file.write("username:"+username + " password:"+ password+"\n")  #saving user info
+            user_file.write(f'{username},{password},null,null,{0},{0},{0},null')  #saving user info
             user_file.close()
             print("Registration Successful, You can proceed with the game.")
             flag2 = True
