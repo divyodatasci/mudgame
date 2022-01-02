@@ -23,7 +23,7 @@ def login_user():
                 energy=int(line_data[4])
                 fighting_skill=int(line_data[5])
                 wealth=int(line_data[6]) 
-                location = str(line_data[7])
+                location = str(line_data[7].strip())
                 player = User(username, password, name, sex, energy, fighting_skill, wealth, location )   # creating user object 
                 break
     return player    

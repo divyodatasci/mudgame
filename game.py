@@ -70,6 +70,7 @@ class Game:
         if(self.user.character.wealth >= 500):
             self.user.character.wealth = self.user.character.wealth - 500
             self.user.character.energy = self.user.character.energy + 1500
+            self.user.update_data_file()
             print(f'You took the energy potion, Your energy is now {self.user.character.energy} and your current wealth is {self.user.character.wealth}')
         else:
             print("Sorry you don't have money to buy potion.")

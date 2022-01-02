@@ -2,4 +2,4 @@ divy75,dj75,null,null,0,0,0,null
 divyo775,divyo775,null,null,0,0,0,null
 divyo7,divyo7,null,null,0,0,0,null
 divyo33,divyo33,null,null,0,0,0,null
-div3395,div3395,Dj,Male,300,100,1000,beginning
+div3395,div3395,Dj,Male,3300,100,0,potion_seller

@@ -77,7 +77,7 @@ class User:
     def play_game(self):
         game = Game(self)  # Creating an object of Game class
         game.showGameMap()
-        if(self.location=='null' or 'beginning'): 
+        if(self.location=='null' or self.location=='beginning'): 
             game.beginning() # Calling the beginning method of game class
         elif(self.location=='potion_seller'):
             game.potion_seller()
