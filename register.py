@@ -5,7 +5,8 @@ from login import *
 #function for registering new user
 def register_user():
     print("Enter details to register.")
-    flag1 = False                               #flag1 becomes true when username gets accepted
+    flag1 = False  
+    user=""                             #flag1 becomes true when username gets accepted
     while flag1 == False:
         username = input("Please enter an username: ")  #username input is taken
         usernames_file = open('usernames.txt', 'r')     #username.txt is opened to check if 
@@ -31,8 +32,8 @@ def register_user():
             user_file = open('users.txt', 'a')              #users.txt keeps the information of the user and last game
             usernames_file.write(username+"\n")             #saving username in usernames.txt
             usernames_file.close()
-            user = User(username, password)
-            user_file.write(f'{username},{password},null,null,{0},{0},{0},null')  #saving user info
+            user = User(username, password, 'null' , 'null', 0, 0, 0, 'null')
+            user_file.write(f'{username},{password},null,null,{0},{0},{0},null'+'\n')  #saving user info
             user_file.close()
             print("Registration Successful, You can proceed with the game.")
             flag2 = True

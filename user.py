@@ -3,11 +3,11 @@ from game import Game
 
 # following class stores the player information and also performs the actions of player
 class User:
-    def __init__(self, username, password):
+    def __init__(self, username, password, name, sex,  energy, fighting_skill, wealth, location):
         self.username = username
         self.password = password
-        self.character = ""
-        self.location=""
+        self.character = Character(name, sex, energy, fighting_skill, wealth)
+        self.location= location
 
     # following method is used for creating character 
     def create_character(self):
@@ -85,9 +85,21 @@ class User:
             game.cognoblin()
 
 
-'''class LoggedInUser(User):
-    def __init__(self, username, password):
-        super().__init__(username,password)
-        self.character = ""
-        self.score = 0
-        self.level=0'''
+    def update_data_file(self):
+        user_file = open('users.txt','r')          # users.txt has all the user details
+        lines = user_file.readlines()               # storing all the lines of users.txt file in lines
+        
+        if len(lines) > 0:
+            i=0
+            for line in lines: 
+                line_data = line.split(',')
+                id=str(line_data[0])
+                if id == str(self.username):     # authenticating by checking user information
+                    lines[i] = f'{self.username},{self.password},{self.character.name},{self.character.sex},{self.character.energy},{self.character.fighting_skill},{self.character.wealth},{self.location}'+'\n'
+                    break
+                i = i+1
+        
+        user_file.close()
+        user_file = open('users.txt','w')  
+        for line in lines:
+            user_file.write(line)

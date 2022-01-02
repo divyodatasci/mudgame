@@ -17,7 +17,7 @@ def main():
     print(player)
 
     flag_character_creation = False
-
+    
     if (player.character.name == 'null' and player.location != 'won'):
 
         while flag_character_creation == False:

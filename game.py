@@ -22,22 +22,15 @@ class Game:
 
     def beginning(self):
         self.user.location = "beginning"
-        print(self.user.username)
-        print(self.user.password)
-        print(self.user.character.name)
-        print(self.user.character.sex)
-        print(self.user.character.wealth)
-        # print(self.user.character.)
-        # print(self.user.password)
-        # print(self.user.username)
-        # print(self.user.password)
-        # character
+      
+        self.user.update_data_file()
+        
         location_details ="You are outside the railway station, there is a three way road ahead, you see a sign board infront of you, the sign board indicates that \nthere is an ancient temple of Lord Mudyuwana in the EAST direction, \nthere is the river Wamuduna in the WEST direction and \nthe Amudon Jungle towards the SOUTH direction \n In which direction would you like to proceed [N/W/E/S]?"
         call_meth = interaction(location_details, self.nowhere, self.temple, self.nowhere, self.potion_seller)
         call_meth()
     
     
-
+ 
     
      
     # def actionOnInput(self, input_command, location, north, east, west, south):
@@ -46,10 +39,12 @@ class Game:
     
     def temple(self):
         self.user.location = "temple" 
+        self.user.update_data_file()
         print("You are standing near Lord Mudwana's temple, There is a beautiful river nearby, but the entry is resticted beyond this, In which direction do you want to proceed [N/E/W/S]?")
         
     def nowhere(self):
         print("Sorry! you cannot go in this direction. Enter a different input")
+        
         if(self.user.location=='beginning'):
             self.beginning()
         if(self.user.location=='potion_seller'):
@@ -60,6 +55,7 @@ class Game:
 
     def potion_seller(self):
         self.user.location = "potion_seller"
+        self.user.update_data_file()
         location_details ="You are in the Amudon Jungle, there is a cave in the EAST Direction, you need to go through that cave to reach the treasure. \n In which direction would you like to proceed [N/W/E/S]?"
         
         print("You reach half way towards jungle, you see there are no entry sign boards in both SOUTH and WEST direction, You see a man selling energy potion. \nThe man tells you that if you drink the energy potion, you gain 1500 MegaCalories of energy from the potion but you need to pay 500 Gold Coins for the potion.")
@@ -80,6 +76,7 @@ class Game:
 
     def cognoblin(self):
         self.user.location = "cognoblin"
+        self.user.update_data_file()
         print()
         print()
         print("You have entered a cave made of hard rocks, Lights are flashing all around, It is impossible to move in any of the direction because all the ways out of the cave are locked. Infront of you stands a BIG MONSTER named Cognoblin.")
@@ -106,6 +103,7 @@ class Game:
             self.cognoblin()
         if win == True:
             self.user.location = 'won'
+            self.user.update_data_file()
     def playQuestion():
         print       
     def payCognoblin(self):
