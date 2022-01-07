@@ -79,6 +79,8 @@ class User:
         game.showGameMap()
         if(self.location=='null' or self.location=='beginning'): 
             game.beginning() # Calling the beginning method of game class
+        elif(self.location=='temple'): 
+            game.temple() 
         elif(self.location=='potion_seller'):
             game.potion_seller()
         elif(self.location=='cognoblin'):
