@@ -6,7 +6,7 @@ def main():
     flag = False   # flag becomes true once the user is able to login
     player=''
     while flag == False:
-        if askYesOrNo("Are you an registered user [Y/N]?"):   # askYesOrNo function is called 
+        if askYesOrNo("Are you a registered user [Y/N]?"):   # askYesOrNo function is called 
             player=login_user()     # calls login function if answer is yes
         else:
             player=register_user()  # calls register function if answer is no
@@ -14,7 +14,7 @@ def main():
             flag = True
         else:
             print("Sorry! Either the username or password is wrong, Please register or login again.")
-    print(player)
+    print(f'Hi {player.username}, You have Successfully Logged-in into the game.')
 
     flag_character_creation = False
     

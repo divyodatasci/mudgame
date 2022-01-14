@@ -25,6 +25,12 @@ def interaction(location_details, north, east, west, south):
             elif input_command.title() in ['Go South', 'Gs', 'South', 'S']:
                 flag_dir= True
                 return_meth = south
+            elif input_command.title() in ['Help', 'H']:
+                flag_dir= True
+                return_meth = help
+            elif input_command.title() in ['Quit', 'Q']:
+                flag_dir= True
+                return_meth = exit
             else:
                 print("This input is invalid in this stage, please provide a different input")
             
@@ -39,6 +45,8 @@ def askYesOrNo(question):
         elif answer.title() in ["No", "N"]:
             flag = True
             return False
+        elif answer.title() in ['Quit', 'Q']:
+            exit()
         else:
             print("Sorry! your answer was invalid, please enter your answer again.")
 

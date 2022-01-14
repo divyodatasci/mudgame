@@ -1,5 +1,8 @@
-divy75,dj75,null,null,0,0,0,null
-divyo775,divyo775,null,null,0,0,0,null
-divyo7,divyo7,null,null,0,0,0,null
-divyo33,divyo33,null,null,0,0,0,null
-div3395,div3395,Dj,Male,3300,100,0,potion_seller
+mini75,mi75,null,null,0,0,0,null
+srk775,shahrukh,null,null,0,0,0,null
+vicky55,vicky_uk,Som,Male,500,800,100,beginning
+jatin,jatt44,null,null,0,0,0,null
+div3395,div3395,Dj,Male,3300,100,0,cognoblin
+divyokk,divyokk,null,null,0,0,0,null
+divykk,divykk,null,null,0,0,0,null
+djuk,djuk,null,null,0,0,0,null

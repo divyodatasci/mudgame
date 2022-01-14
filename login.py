@@ -6,10 +6,10 @@ from user import   User
 # function for logging in user
 def login_user():
     print("Enter your login details.")  
-    username= input("Enter your username: ")  # username input
-    password= getpass("Enter your password: ") # password input
+    username= input("Enter your username: ")  
+    password= getpass("Enter your password: ") 
     user_file = open('users.txt','r')          # users.txt has all the user details
-    lines = user_file.readlines()               # storing all the lines of users.txt file in lines
+    lines = user_file.readlines()               
     player=""
     if len(lines) > 0:
         for line in lines: 
