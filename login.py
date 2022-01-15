@@ -4,10 +4,7 @@ from user import   User
 
 
 # function for logging in user
-def login_user():
-    print("Enter your login details.")  
-    username= input("Enter your username: ")  
-    password= getpass("Enter your password: ") 
+def login_user(username, password):
     user_file = open('users.txt','r')          # users.txt has all the user details
     lines = user_file.readlines()               
     player=""
@@ -28,15 +25,4 @@ def login_user():
                 break
     return player    
         
-       
-    
-# # following method is used to authenticate the details
-# def authenticate(id, password):
-#     user_file = open('users.txt','r')
-#     lines = user_file.readlines()
-#     for line in lines:
-#         line_data = line.split(',')
-#         if line_data[0] == id & line_data[1]==password :
-
-#             return True
-#     return False
+ 

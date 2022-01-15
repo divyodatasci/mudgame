@@ -25,22 +25,25 @@ class Game:
         self.user.location = "beginning"
         self.user.update_data_file()
         location_details ="You are outside the railway station, there is a three way road ahead, \nyou see a sign board infront of you, the sign board indicates that \nthere is an ancient temple of Lord Mudyuwana in the EAST direction, \nthere is the river Wamuduna in the WEST direction and \nthe Amudon Jungle towards the SOUTH direction \n In which direction would you like to proceed [N/W/E/S]?"
-        call_meth = interaction(location_details, self.nowhere, self.temple, self.river, self.potion_seller)
-        call_meth()
+        print(location_details)
+        input_command = input("Enter an input to proceed: ")
+        self.interaction(input_command)
     
     def river(self):
         self.user.location = "river" 
         self.user.update_data_file()
         location_details = "You are standing near the beautiful Wamudana river nearby, but the entry is resticted beyond this,  In which direction do you want to proceed [N/E/W/S]?"
-        call_meth = interaction(location_details, self.nowhere, self.beginning, self.nowhere, self.nowhere)
-        call_meth()    
+        print(location_details)
+        input_command = input("Enter an input to proceed: ")
+        self.interaction(input_command)    
     
     def temple(self):
         self.user.location = "temple" 
         self.user.update_data_file()
         location_details = "You are standing near Lord Mudwana's temple, There is a beautiful river nearby, but the entry is resticted beyond this, In which direction do you want to proceed [N/E/W/S]?"
-        call_meth = interaction(location_details, self.nowhere, self.nowhere, self.beginning, self.nowhere)
-        call_meth()
+        print(location_details)
+        input_command = input("Enter an input to proceed: ")
+        self.interaction(input_command)
 
     def nowhere(self):
         print("Sorry! you cannot go in this direction. Enter a different input")
@@ -66,8 +69,9 @@ class Game:
         
         if askYesOrNo("Would you like to buy and drink the potion [Y/N]?"):
             self.buy_potion()
-            call_meth=interaction(location_details, self.beginning, self.cognoblin, self.nowhere, self.nowhere)
-            call_meth()
+            print(location_details)
+            input_command = input("Enter an input to proceed: ")
+            self.interaction(input_command)
         else:
             self.cognoblin()
     def buy_potion(self):
@@ -188,7 +192,9 @@ class Game:
         print("GW -- Use this command to move towards West direction")
         print("Quit -- Use this command to quit the game.")
         print("Q-- Use this command to quit the game.")
-
+        self.call_self_location()
+        
+    def call_self_location(self):
         if(self.user.location=='beginning'):
             self.beginning()
         if(self.user.location=='temple'):
@@ -199,3 +205,59 @@ class Game:
             self.potion_seller()
         if(self.user.location=='Cognoblin'):
             self.cognoblin()
+
+    def interaction(self, input_command):
+        if input_command.title() == 'Location' or input_command.title() == 'L':
+            self.call_self_location()
+        
+        elif input_command.title() in ['Go North','Gn', 'North', 'N']:
+            if(self.user.location == 'beginning'):
+                self.nowhere()
+            elif(self.user.location=='temple'):
+                self.nowhere()
+            elif(self.user.location=='river'):
+                self.nowhere()
+            elif(self.user.location=='potion_seller'):
+                self.beginning()
+            elif(self.user.location=='Cognoblin'):
+                self.nowhere()
+        elif input_command.title() in ['Go East' , 'Ge', 'East', 'E']:
+            if(self.user.location == 'beginning'):
+                self.temple()
+            if(self.user.location=='temple'):
+                self.nowhere()
+            if(self.user.location=='river'):
+                self.beginning()
+            if(self.user.location=='potion_seller'):
+                self.cognoblin()
+            if(self.user.location=='Cognoblin'):
+                self.nowhere()
+        elif input_command.title() in ['Go West', 'Gw', 'West', 'W']:
+            if(self.user.location == 'beginning'):
+                self.river()
+            if(self.user.location=='temple'):
+                self.beginning()
+            if(self.user.location=='river'):
+                self.nowhere()
+            if(self.user.location=='potion_seller'):
+                self.nowhere()
+            if(self.user.location=='Cognoblin'):
+                self.nowhere()
+        elif input_command.title() in ['Go South', 'Gs', 'South', 'S']:
+            if(self.user.location == 'beginning'):
+                self.potion_seller()
+            elif(self.user.location=='temple'):
+                self.nowhere()
+            elif(self.user.location=='river'):
+                self.nowhere()
+            elif(self.user.location=='potion_seller'):
+                self.nowhere()
+            elif(self.user.location=='Cognoblin'):
+                self.nowhere()
+        elif input_command.title() in ['Help', 'H']:
+            self.help()
+        elif input_command.title() in ['Quit', 'Q']:
+            self.exit()
+        else:
+            print("This input is invalid in this stage, please provide a different input")
+            self.call_self_location()

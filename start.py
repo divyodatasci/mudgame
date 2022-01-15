@@ -4,35 +4,60 @@ from utility import *
 
 def main():
     flag = False   # flag becomes true once the user is able to login
-    player=''
+    user=''
     while flag == False:
-        if askYesOrNo("Are you a registered user [Y/N]?"):   # askYesOrNo function is called 
-            player=login_user()     # calls login function if answer is yes
+        if askYesOrNo("Are you a registered user [Y/N]?"):
+            print("Enter your login details.")  
+            username= input("Enter your username: ")  
+            password= getpass("Enter your password: ")    # askYesOrNo function is called 
+            user=login_user(username, password)     # calls login function if answer is yes
         else:
-            player=register_user()  # calls register function if answer is no
-        if player != "":
+            print("Enter details to register.")
+            flag1 = False  
+            while flag1 == False:
+                username = input("Please enter an username: ")  
+                usernames_file = open('usernames.txt', 'r')     # username.txt is opened to check if 
+                lines = usernames_file.readlines()              # username is already present in the file
+                usernames_file.close()                        
+                if len(lines) == 0:
+                    break
+                for line in lines:
+                    if username+"\n" == line:
+                        flag1 = False
+                        print("username already present, please enter a new username")
+                        break
+                    else:
+                        flag1= True
+            flag2 = False                   #flag2 becomes true when registration gets completed
+            while flag2 == False:
+                password = getpass("Please enter a password: ")    #taking the password input
+                repassword = getpass("Please re-enter password: ")
+                if password == repassword:
+                    user=register_user(username, password)  # calls register function if answer is no
+                    flag2 = True
+                else:
+                    print("Sorry! Password Did not match")
+        if user != "":
             flag = True
         else:
             print("Sorry! Either the username or password is wrong, Please register or login again.")
-    print(f'Hi {player.username}, You have Successfully Logged-in into the game.')
+    print(f'Hi {user.username}, You have Successfully Logged-in into the game.')
 
     flag_character_creation = False
     
-    if (player.character.name == 'null' and player.location != 'won'):
+    if (user.character.name == 'null' and user.location != 'won'):
 
         while flag_character_creation == False:
-            player.create_character()
+            user.create_character()
             if askYesOrNo("Are you okay with the created character for your game [Y/N]?"):   # askYesOrNo function is called 
                 flag_character_creation = True
                 print()
                 print()
                 print()
-    player.play_game()     # This begins the game for the created character
+    user.play_game()     # This begins the game for the created character
                     
 
 
-# general function for asking yes/no question
-# the input parameter for this function is the question to be asked
 
 
 if __name__ == "__main__":
