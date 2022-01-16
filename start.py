@@ -2,6 +2,8 @@ from register import *
 from login import *
 from utility import *
 
+# This is the main method, the game starts from this method, this is the first method
+#  which is called on the run of this appliication
 def main():
     flag = False   # flag becomes true once the user is able to login
     user=''

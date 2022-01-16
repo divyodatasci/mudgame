@@ -86,7 +86,7 @@ class User:
         elif(self.location=='cognoblin'):
             game.cognoblin()
 
-
+    # This method updates the details of user in the file where details of users are saved
     def update_data_file(self):
         user_file = open('users.txt','r')          # users.txt has all the user details
         lines = user_file.readlines()               # storing all the lines of users.txt file in lines

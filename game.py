@@ -7,6 +7,7 @@ class Game:
     def __init__(self, user):
         self.name = "MUDMASH"
         self.user= user
+    # Method for printing the map
     def showGameMap(self):
         print("                         Railway Station")
         print()
@@ -20,7 +21,7 @@ class Game:
         print("                              Potion Seller  ====== Cognoblin ===== Treasure")
         print()
 
-
+    # Method for the beginning point of the game, the following method changes the location of user to beginning 
     def beginning(self):
         self.user.location = "beginning"
         self.user.update_data_file()
@@ -28,7 +29,8 @@ class Game:
         print(location_details)
         input_command = input("Enter an input to proceed: ")
         self.interaction(input_command)
-    
+
+    # This method is for the river location
     def river(self):
         self.user.location = "river" 
         self.user.update_data_file()
@@ -36,7 +38,7 @@ class Game:
         print(location_details)
         input_command = input("Enter an input to proceed: ")
         self.interaction(input_command)    
-    
+    # Follwing method describes the operations at temple location
     def temple(self):
         self.user.location = "temple" 
         self.user.update_data_file()
@@ -44,7 +46,7 @@ class Game:
         print(location_details)
         input_command = input("Enter an input to proceed: ")
         self.interaction(input_command)
-
+    # Following method is called when user's input corresponds to no movement
     def nowhere(self):
         print("Sorry! you cannot go in this direction. Enter a different input")
         
@@ -59,7 +61,7 @@ class Game:
         if(self.user.location=='Cognoblin'):
             self.cognoblin()
         
-
+    #  Following method corresponds to operations at potion_seller location
     def potion_seller(self):
         self.user.location = "potion_seller"
         self.user.update_data_file()
@@ -74,6 +76,8 @@ class Game:
             self.interaction(input_command)
         else:
             self.cognoblin()
+
+    # Following method performs the buying of potion functionality
     def buy_potion(self):
         if(self.user.character.wealth >= 500):
             self.user.character.wealth = self.user.character.wealth - 500
@@ -83,6 +87,7 @@ class Game:
         else:
             print("Sorry you don't have money to buy potion.")
 
+    #  Following ethod corresponds to operations at potion_seller location
     def cognoblin(self):
         self.user.location = "cognoblin"
         self.user.update_data_file()
@@ -117,6 +122,8 @@ class Game:
         else:
             print("YOU LOST THE GAME!!! THE GAME IS OVERRRRRRRRRR")
 
+    #  Following method does the functionality of asking question and validating the answer at Cognoblin
+    # This method is called when user chooses to answer Cognoblin's question
     def playQuestion(self):
         cognoblin_questions = ["Vincent has a paper route. Each morning, he delivers 37 newspapers to customers in his neighborhood. It takes Vincent 50 minutes to deliver all the papers. If Vincent is sick or has other plans, his friend Thomas, who lives on the same street, will sometimes deliver the papers for him.",
          "The Pacific yew is an evergreen tree that grows in the Pacific Northwest. The Pacific yew has a fleshy, poisonous fruit. Recently, taxol, a substance found in the bark of the Pacific yew, was discovered to be a promising new anticancer drug.",
@@ -142,6 +149,8 @@ class Game:
             print("You answered the question Incorrectly, Cognoblin is angry now. He is Going to kill You!!!")
         return won
 
+
+    #  Following method corresponds to paying gold coins to cognoblin functionality, called when user chooses to pay
     def payCognoblin(self):
         if self.user.character.wealth > 1000:
             print("You were able to pay Cognoblin 1000 Gold Coins so he unlocks the door to treasure for you!!!")
@@ -150,7 +159,8 @@ class Game:
             print("You don't have 1000 Gold Coins, you are unable to pay Cognoblin 1000 Gold Coins, He is angry now!!!")
             won = False
         return won 
-    
+
+    #  Following method corresponds to fighting with cognoblin functionality, called when user chooses to figh
     def fightCognoblin(self):
         cognoblin =  Character('Cognoblin','O','1000','150','15000')
         player = self.user.character
@@ -177,7 +187,7 @@ class Game:
 
         return won
        
-
+    # This method is called when user gives HELP as input
     def help(self):
         print("MUD-MASH is a text based game, You can use the following text commands to proceed in the game.")
         print("\nLocation -- Use this command to get details about the location")
@@ -193,7 +203,8 @@ class Game:
         print("Quit -- Use this command to quit the game.")
         print("Q-- Use this command to quit the game.")
         self.call_self_location()
-        
+
+    #  Following method helps the user in reaching the location, which is saved in the users file    
     def call_self_location(self):
         if(self.user.location=='beginning'):
             self.beginning()
@@ -206,53 +217,58 @@ class Game:
         if(self.user.location=='Cognoblin'):
             self.cognoblin()
 
+    #  Following method returns the next location of the user after checking the user input and current location
+    def getNextLocation(self, input_command):
+        next_location = ""
+        if input_command.title() in ['Go North','Gn', 'North', 'N']:
+           
+            if(self.user.location in ['beginning', 'temple', 'river','Cognoblin']):
+                next_location = 'nowhere'
+            elif(self.user.location=='potion_seller'):
+                next_location = 'beginning'
+        elif input_command.title() in ['Go East' , 'Ge', 'East', 'E']:
+            if(self.user.location == 'beginning'):
+                next_location = 'temple'
+            if(self.user.location in ['temple','Cognoblin']):
+                next_location = 'nowhere'
+            if(self.user.location=='river'):
+                next_location = 'beginning'
+            if(self.user.location=='potion_seller'):
+                next_location = 'Cognoblin'
+        elif input_command.title() in ['Go West', 'Gw', 'West', 'W']:
+            if(self.user.location == 'beginning'):
+                next_location = 'river'
+            if(self.user.location=='temple'):
+                next_location = 'beginning'
+            else:
+                next_location = 'nowhere'
+            
+        elif input_command.title() in ['Go South', 'Gs', 'South', 'S']:
+            if(self.user.location == 'beginning'):
+                next_location = 'potion_seller'
+            else:
+                next_location = 'nowhere'
+        return next_location
+
+    # This method handles the movement of user from one location to another in the game with respect to user's input
+    # and current location
     def interaction(self, input_command):
         if input_command.title() == 'Location' or input_command.title() == 'L':
             self.call_self_location()
         
-        elif input_command.title() in ['Go North','Gn', 'North', 'N']:
-            if(self.user.location == 'beginning'):
-                self.nowhere()
-            elif(self.user.location=='temple'):
-                self.nowhere()
-            elif(self.user.location=='river'):
-                self.nowhere()
-            elif(self.user.location=='potion_seller'):
+        elif input_command.title() in ['Go North','Gn', 'North', 'N', 'Go East' , 'Ge', 'East', 'E', 'Go West', 'Gw', 'West', 'W', 'Go South', 'Gs', 'South', 'S']:
+            next_location = self.getNextLocation(input_command)
+            if(next_location=='beginning'):
                 self.beginning()
-            elif(self.user.location=='Cognoblin'):
-                self.nowhere()
-        elif input_command.title() in ['Go East' , 'Ge', 'East', 'E']:
-            if(self.user.location == 'beginning'):
+            if(next_location=='temple'):
                 self.temple()
-            if(self.user.location=='temple'):
-                self.nowhere()
-            if(self.user.location=='river'):
-                self.beginning()
-            if(self.user.location=='potion_seller'):
-                self.cognoblin()
-            if(self.user.location=='Cognoblin'):
-                self.nowhere()
-        elif input_command.title() in ['Go West', 'Gw', 'West', 'W']:
-            if(self.user.location == 'beginning'):
+            if(next_location=='river'):
                 self.river()
-            if(self.user.location=='temple'):
-                self.beginning()
-            if(self.user.location=='river'):
-                self.nowhere()
-            if(self.user.location=='potion_seller'):
-                self.nowhere()
-            if(self.user.location=='Cognoblin'):
-                self.nowhere()
-        elif input_command.title() in ['Go South', 'Gs', 'South', 'S']:
-            if(self.user.location == 'beginning'):
+            if(next_location=='potion_seller'):
                 self.potion_seller()
-            elif(self.user.location=='temple'):
-                self.nowhere()
-            elif(self.user.location=='river'):
-                self.nowhere()
-            elif(self.user.location=='potion_seller'):
-                self.nowhere()
-            elif(self.user.location=='Cognoblin'):
+            if(next_location=='Cognoblin'):
+                self.cognoblin()
+            if(next_location=='nowhere'):
                 self.nowhere()
         elif input_command.title() in ['Help', 'H']:
             self.help()

@@ -1,4 +1,6 @@
 import random
+
+# The class is used for generating question and validating their answers
 class Question:
     def __init__(self, querylist, answerlist):
         self.querylist = querylist
@@ -15,7 +17,7 @@ class Question:
             match = False
         return match
 
-
+# This is a sub-class of Questions used for generating Multiple Choice Questions and validating their answers
 class MultipleChoiceQuestion(Question):
 
     def __init__(self, querylist, answerlist, optionslist):
