@@ -1,5 +1,6 @@
 from Character import Character
 from game import Game
+import time
 
 # following class stores the player information and also performs the actions of player
 class User:
@@ -76,7 +77,12 @@ class User:
     # This method is used to start the game for the user
     def play_game(self):
         game = Game(self)  # Creating an object of Game class
+        print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
         game.showGameMap()
+        print("----------------------------------------------------------------------")
+        time.sleep(.5)
+        print("Enter 'Help' or 'H' anytime during the game to know about all the commands that can be used in the game ")
+        time.sleep(.5)
         if(self.location=='null' or self.location=='beginning'): 
             game.beginning() # Calling the beginning method of game class
         elif(self.location=='temple'): 

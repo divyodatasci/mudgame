@@ -55,7 +55,7 @@ def interaction(location, north, east, west, south, input_command):
         return_meth = location
     return return_meth  
 
-
+# This method is called for asking yes or no question
 def askYesOrNo(question):
     flag = False     # flag becomes true once the user gives a valid answer
     while flag==False:

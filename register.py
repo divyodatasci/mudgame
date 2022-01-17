@@ -2,7 +2,7 @@ from getpass import getpass
 from user import User
 from login import *
 
-
+# This method is used for registering users
 def register_user(username, password):
     user="" 
     usernames_file = open('usernames.txt', 'a')     #usernames.txt keeps all the usernames

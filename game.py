@@ -18,6 +18,9 @@ class Game:
         print("                                ||")
         print("------------------- A M U D O N     F O R E S T ------------------------------")
         print("                                ||")
+        print("                                ||")
+        print("                                ||")
+        print("                                ||")
         print("                              Potion Seller  ====== Cognoblin ===== Treasure")
         print()
 
@@ -69,7 +72,7 @@ class Game:
         
         print("You reach half way towards jungle, you see there are no entry sign boards in both SOUTH and WEST direction, You see a man selling energy potion. \nThe man tells you that if you drink the energy potion, you gain 1500 MegaCalories of energy from the potion but you need to pay 500 Gold Coins for the potion.")
         
-        if askYesOrNo("Would you like to buy and drink the potion [Y/N]?"):
+        if self.askYesOrNo("Would you like to buy and drink the potion [Y/N]?"):
             self.buy_potion()
             print(location_details)
             input_command = input("Enter an input to proceed: ")
@@ -104,14 +107,20 @@ class Game:
         print('"I will kill you if you choose an option and are unable to succeed in that task')
         print("How do you want to proceed?")
 
-        user_input = int(input("Please provide your choice [1/2/3]: "))
+        user_input = input("Please provide your choice [1/2/3]: ")
         win = False
-        if user_input == 1:
+        if user_input == '1':
             win = self.playQuestion()
-        elif user_input == 2:
+        elif user_input == '2':
             win = self.payCognoblin()
-        elif user_input == 3:
+        elif user_input == '3':
             win = self.fightCognoblin()
+        elif user_input.title() in ['Help', 'H']:
+            self.help()
+        elif user_input.title() in ['Score', 'Sc']:
+            self.calculateScore()
+        elif user_input.title() in ['Quit', 'Q']:
+            exit() 
         else:
             print("Sorry, that was an invalid input")
             self.cognoblin()
@@ -125,25 +134,39 @@ class Game:
     #  Following method does the functionality of asking question and validating the answer at Cognoblin
     # This method is called when user chooses to answer Cognoblin's question
     def playQuestion(self):
+
+        won = False
+
         cognoblin_questions = ["Vincent has a paper route. Each morning, he delivers 37 newspapers to customers in his neighborhood. It takes Vincent 50 minutes to deliver all the papers. If Vincent is sick or has other plans, his friend Thomas, who lives on the same street, will sometimes deliver the papers for him.",
          "The Pacific yew is an evergreen tree that grows in the Pacific Northwest. The Pacific yew has a fleshy, poisonous fruit. Recently, taxol, a substance found in the bark of the Pacific yew, was discovered to be a promising new anticancer drug.",
          "Erin is twelve years old. For three years, she has been asking her parents for a dog. Her parents have told her that they believe a dog would not be happy in an apartment, but they have given her permission to have a bird. Erin has not yet decided what kind of bird she would like to have.",
          "Tim's commute never bothered him because there were always seats available on the train and he was able to spend his 40 minutes comfortably reading the newspaper or catching up on paperwork. Ever since the train schedule changed, the train has been extremely crowded, and by the time the doors open at his station, there isn't a seat to be found.",
          "When they heard news of the hurricane, Maya and Julian decided to change their vacation plans. Instead of traveling to the island beach resort, they booked a room at a fancy new spa in the mountains. Their plans were a bit more expensive, but they'd heard wonderful things about the spa and they were relieved to find availability on such short notice."]
+        
         options_list =[["Vincent and Thomas live in the same neighborhood.","It takes Thomas more than 50 minutes to deliver the papers.","It is dark outside when Vincent begins his deliveries.","Thomas would like to have his own paper route."],
         ["Taxol is poisonous when taken by healthy people.","Taxol has cured people from various diseases.","People should not eat the fruit of the Pacific yew","The Pacific yew was considered worthless until taxol was discovered."],
         ["Erin's parents like birds better than they like dogs.","Erin does not like birds.","Erin and her parents live in an apartment.","Erin and her parents would like to move."],
         ["Tim would be better off taking the bus to work.","Tim's commute is less comfortable since the train schedule changed.","Many commuters will complain about the new train schedule.","Tim will likely look for a new job closer to home."],
         ["Maya and Julian take beach vacations every year.","The spa is overpriced.","It is usually necessary to book at least six months in advance at the spa.","Maya and Julian decided to change their vacation plans because of the hurricane."]]
+        
         answers_list = [1, 3, 3, 2, 4]
+
         mcq = MultipleChoiceQuestion(cognoblin_questions, answers_list, options_list)
+
         que_dict = mcq.generateQuestion()
+
         print(que_dict.get('query'))
         print(f'1. {que_dict.get("option_0")} \n2. {que_dict.get("option_1")} \n3. {que_dict.get("option_2")} \n4. {que_dict.get("option_3")}')
         user_answer= input('Please choose the correct option to proceed [1/2/3/4]: ')  
         if mcq.matchAnswer(que_dict.get('query'), user_answer) == True:
             won = True
             print("You were able to answer the question Correctly, Cognoblin opens the door of treasure for you!!!")
+        elif user_answer.title() in ['Help', 'H']:
+            self.help()
+        elif user_answer.title() in ['Score', 'Sc']:
+            self.calculateScore()
+        elif user_answer.title() in ['Quit', 'Q']:
+            exit()
         else:
             won = False
             print("You answered the question Incorrectly, Cognoblin is angry now. He is Going to kill You!!!")
@@ -152,6 +175,7 @@ class Game:
 
     #  Following method corresponds to paying gold coins to cognoblin functionality, called when user chooses to pay
     def payCognoblin(self):
+        won = False
         if self.user.character.wealth > 1000:
             print("You were able to pay Cognoblin 1000 Gold Coins so he unlocks the door to treasure for you!!!")
             won = True
@@ -200,13 +224,16 @@ class Game:
         print("GE -- Use this command to move towards East direction")
         print("Go West -- Use this command to move towards West direction")
         print("GW -- Use this command to move towards West direction")
+        print("Score -- Use this command to check your score.")
+        print("Q-- Use this command to check your score.")
         print("Quit -- Use this command to quit the game.")
         print("Q-- Use this command to quit the game.")
+        time.sleep(1)
         self.call_self_location()
 
     #  Following method helps the user in reaching the location, which is saved in the users file    
     def call_self_location(self):
-        if(self.user.location=='beginning'):
+        if(self.user.location=='null' or self.user.location=='beginning' ):
             self.beginning()
         if(self.user.location=='temple'):
             self.temple()
@@ -214,7 +241,7 @@ class Game:
             self.river()
         if(self.user.location=='potion_seller'):
             self.potion_seller()
-        if(self.user.location=='Cognoblin'):
+        if(self.user.location=='cognoblin'):
             self.cognoblin()
 
     #  Following method returns the next location of the user after checking the user input and current location
@@ -229,16 +256,16 @@ class Game:
         elif input_command.title() in ['Go East' , 'Ge', 'East', 'E']:
             if(self.user.location == 'beginning'):
                 next_location = 'temple'
-            if(self.user.location in ['temple','Cognoblin']):
+            elif(self.user.location in ['temple','Cognoblin']):
                 next_location = 'nowhere'
-            if(self.user.location=='river'):
+            elif(self.user.location=='river'):
                 next_location = 'beginning'
-            if(self.user.location=='potion_seller'):
+            elif(self.user.location=='potion_seller'):
                 next_location = 'Cognoblin'
         elif input_command.title() in ['Go West', 'Gw', 'West', 'W']:
             if(self.user.location == 'beginning'):
                 next_location = 'river'
-            if(self.user.location=='temple'):
+            elif(self.user.location=='temple'):
                 next_location = 'beginning'
             else:
                 next_location = 'nowhere'
@@ -272,8 +299,37 @@ class Game:
                 self.nowhere()
         elif input_command.title() in ['Help', 'H']:
             self.help()
+        elif input_command.title() in ['Score', 'Sc']:
+            self.calculateScore()
         elif input_command.title() in ['Quit', 'Q']:
             self.exit()
         else:
             print("This input is invalid in this stage, please provide a different input")
             self.call_self_location()
+
+    def calculateScore(self):
+        total_score = int(self.user.character.energy) + int(self.user.character.wealth)
+        print(f'Your total score is {total_score}')
+        time.sleep(1.5)
+        self.call_self_location()
+
+    
+    def askYesOrNo(self,question):
+        flag = False     # flag becomes true once the user gives a valid answer
+        while flag==False:
+            answer = input(question+": ")
+            if answer.title() in ["Yes", "Y"]:
+                flag = True
+                return True
+            elif answer.title() in ["No", "N"]:
+                flag = True
+                return False
+            elif answer.title() in ['Quit', 'Q']:
+                exit()
+            elif answer.title() in ['Help', 'H']:
+                self.help()
+            elif answer.title() in ['Score', 'Sc']:
+                self.calculateScore()
+            else:
+                print("Sorry! your answer was invalid, please enter your answer again.")
+

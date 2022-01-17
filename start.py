@@ -1,3 +1,4 @@
+from cgi import print_directory
 from register import *
 from login import *
 from utility import *
@@ -5,6 +6,9 @@ from utility import *
 # This is the main method, the game starts from this method, this is the first method
 #  which is called on the run of this appliication
 def main():
+    print("--------------------------------------------------------------------------")
+    print("-------------------------WELCOME TO MUDMASH 1.0---------------------------") 
+    print("--------------------------------------------------------------------------")
     flag = False   # flag becomes true once the user is able to login
     user=''
     while flag == False:
