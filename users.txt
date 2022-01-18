@@ -9,4 +9,4 @@ mistu1smiley,mistu113,Mistu,Female,500,800,100,cognoblin
 DavidUsername,DavidPassword,Dave,Male,800,500,100,beginning
 Kumar,Binay,Bb,Male,10,800,100,won
 vivekkumar,vivek67,null,null,0,0,0,null
-djuk,djuk,Dj,Male,300,100,1000,beginning
+djuk,djpw,Dib,Male,120,200,100,won

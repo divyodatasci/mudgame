@@ -27,8 +27,6 @@ class MultipleChoiceQuestion(Question):
     def generateQuestion(self):
         query =  random.choice(self.querylist)
         options = self.optionslist[self.querylist.index(query)]
-        print(options)
-        print(type(options))
         query_dict ={
             'query': query,
             'option_0': options[0],

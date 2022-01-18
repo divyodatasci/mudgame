@@ -82,11 +82,16 @@ class User:
         print("----------------------------------------------------------------------")
         time.sleep(.5)
         print("Enter 'Help' or 'H' anytime during the game to know about all the commands that can be used in the game ")
+        print("Enter 'Score' or 'Sc' anytime during the game to check your score.")
+        print("Enter 'Quit' or 'q' anytime during the game to quit the game.")
+        print("Enter 'Location' or 'L' anytime during the game to know location in the game.")
         time.sleep(.5)
         if(self.location=='null' or self.location=='beginning'): 
             game.beginning() # Calling the beginning method of game class
         elif(self.location=='temple'): 
             game.temple() 
+        elif(self.location=='river'): 
+            game.temple()     
         elif(self.location=='potion_seller'):
             game.potion_seller()
         elif(self.location=='cognoblin'):

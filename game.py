@@ -1,5 +1,5 @@
 from Character import Character
-from question import MultipleChoiceQuestion
+from question import MultipleChoiceQuestion, Question
 from utility import *
 import time 
 # Following class has all the methods related to the game, sets the reponse of the game on input of the player
@@ -28,7 +28,8 @@ class Game:
     def beginning(self):
         self.user.location = "beginning"
         self.user.update_data_file()
-        location_details ="You are outside the railway station, there is a three way road ahead, \nyou see a sign board infront of you, the sign board indicates that \nthere is an ancient temple of Lord Mudyuwana in the EAST direction, \nthere is the river Wamuduna in the WEST direction and \nthe Amudon Jungle towards the SOUTH direction \n In which direction would you like to proceed [N/W/E/S]?"
+
+        location_details ="BEGINNING POINT \n \n You are outside the railway station, there is a three way road ahead, \nyou see a sign board infront of you, the sign board indicates that \nthere is an ancient temple of Lord Mudyuwana in the EAST direction, \nthere is the river Wamuduna in the WEST direction and \nthe Amudon Jungle towards the SOUTH direction \n In which direction would you like to proceed [N/W/E/S]?"
         print(location_details)
         input_command = input("Enter an input to proceed: ")
         self.interaction(input_command)
@@ -37,10 +38,32 @@ class Game:
     def river(self):
         self.user.location = "river" 
         self.user.update_data_file()
-        location_details = "You are standing near the beautiful Wamudana river nearby, but the entry is resticted beyond this,  In which direction do you want to proceed [N/E/W/S]?"
+        location_details = "You are standing near the beautiful Wamudana river nearby, A rich man stands with lots of money he asks you a question if you answer it correctly he gives you 500 gold coins but you need to pay him 100 gold coins, if you are wrong."
+        
         print(location_details)
-        input_command = input("Enter an input to proceed: ")
+        question_list = ["Look at this series: 7, 10, 8, 11, 9, 12, ... What number should come next? "
+        "Look at this series: 36, 34, 30, 28, 24, ... What number should come next? "
+        "A fruit seller had some apples. He sells 40%% apples and still has 420 apples. How many apples did he originally have? "
+        "What percentage of numbers from 1 to 70 have 1 or 9 in the unit's digit? "
+        "If one-third of one-fourth of a number is 15, then what is the three-tenth of that number? "]
+
+        answer_list = ["10","22", "700", "20", "54"]
+
+        if self.askYesOrNo("Do you want to try answering his question [Y/N]? "):
+            questions = Question(question_list, answer_list)
+            question= questions.generateQuestion()
+            user_answer = input(question)
+            
+            if questions.matchAnswer(question, user_answer):
+                self.user.character.wealth = self.user.character.wealth + 500
+                print(f'Your answer is absolutely correct, you won 500 gold coins. Your total wealth is {self.user.character.wealth}')
+            else:
+                self.user.character.wealth = self.user.character.wealth - 100
+                print(f'Your answer was wrong, you lost 100 gold coins. Your total wealth is {self.user.character.wealth}')
+            
+        input_command = input("The entry is resticted beyond this,  In which direction do you want to proceed [N/E/W/S]? ")
         self.interaction(input_command)    
+        
     # Follwing method describes the operations at temple location
     def temple(self):
         self.user.location = "temple" 
@@ -68,6 +91,7 @@ class Game:
     def potion_seller(self):
         self.user.location = "potion_seller"
         self.user.update_data_file()
+        print("POTION SELLER \n \n")
         location_details ="You are in the Amudon Jungle, there is a cave in the EAST Direction, you need to go through that cave to reach the treasure. \n In which direction would you like to proceed [N/W/E/S]?"
         
         print("You reach half way towards jungle, you see there are no entry sign boards in both SOUTH and WEST direction, You see a man selling energy potion. \nThe man tells you that if you drink the energy potion, you gain 1500 MegaCalories of energy from the potion but you need to pay 500 Gold Coins for the potion.")
@@ -94,6 +118,7 @@ class Game:
     def cognoblin(self):
         self.user.location = "cognoblin"
         self.user.update_data_file()
+        print("COGNOBLIN'S CAVE")
         print()
         print()
         print("You have entered a cave made of hard rocks, Lights are flashing all around, It is impossible to move in any of the direction because all the ways out of the cave are locked. Infront of you stands a BIG MONSTER named Cognoblin.")
